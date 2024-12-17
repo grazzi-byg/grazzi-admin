@@ -1,0 +1,9 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.layout-content {
+    width: 100vw;
+    height: 85vh;
+}
