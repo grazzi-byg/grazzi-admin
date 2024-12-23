@@ -1,0 +1,19 @@
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container img {
+  margin: 0;
+  padding: 0;
+  height: 4vh;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .logo-container img {
+    height: 2vh;
+  }
+
+}
