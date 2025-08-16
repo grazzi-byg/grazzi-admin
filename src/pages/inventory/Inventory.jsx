@@ -1,8 +1,8 @@
-import "./Products.css";
+import "./Inventory.css";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-export default function Products() {
+export default function Inventory() {
   let navigate = useNavigate();
 
   const [availability, setAvailability] = useState({
@@ -21,10 +21,10 @@ export default function Products() {
   };
 
   return (
-    <div className="products-container">
+    <div className="inventory-container">
       <button
-        className="products-create-button"
-        onClick={() => navigate("/products/create")}
+        className="inventory-create-button"
+        onClick={() => navigate("/inventory/create")}
       >
         Crear producto
       </button>
