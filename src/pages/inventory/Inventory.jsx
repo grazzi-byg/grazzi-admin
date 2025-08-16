@@ -1,12 +1,14 @@
 import "./Inventory.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import FormProduct from "../../components/forms/form-product/FormProduct";
+import Modal from "../../components/modal/Modal";
 
 export default function Inventory() {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
-  console.log(products);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -28,7 +30,7 @@ export default function Inventory() {
     <div className="inventory-container">
       <button
         className="button-primary"
-        onClick={() => navigate("/inventory/create")}
+        onClick={() => setShowModal(true)}
       >
         Crear producto
       </button>
@@ -79,6 +81,11 @@ export default function Inventory() {
           </div>
         ))}
       </div>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <FormProduct />
+        </Modal>
+      )}
     </div>
   );
 }
