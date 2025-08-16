@@ -28,3 +28,53 @@
   background-color: #523a12;
 }
 
+.inventory-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inventory-item {
+  display: flex;
+  padding: 1rem 0;
+  border-bottom: 1px solid #d3c0af;
+}
+
+.inventory-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.inventory-item-info {
+  flex: 1;
+}
+
+.inventory-item-title {
+  margin: 0 0 0.5rem;
+}
+
+.inventory-item-label {
+  font-weight: bold;
+}
+
+.inventory-item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inventory-edit-button,
+.inventory-delete-button {
+  background: none;
+  border: none;
+  color: #b29079;
+  cursor: pointer;
+  padding: 0;
+}
+
+.inventory-delete-button {
+  color: #8a4b4b;
+}
