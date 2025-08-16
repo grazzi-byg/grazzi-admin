@@ -8,73 +8,45 @@
   gap: 2rem;
 }
 
-.inventory-create-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 13rem;
-  height: 2rem;
-  background-color: #b29079;
-  color: white;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.inventory-create-button:hover {
-  background-color: #523a12;
-}
-
 .inventory-list {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .inventory-item {
   display: flex;
-  padding: 1rem 0;
-  border-bottom: 1px solid #d3c0af;
+  padding: 1rem;
+  border: 1px solid var(--color-tertiary);
+}
+.inventory-item-title {
+  font-size: 1.2rem;
+}
+
+.inventory-item-title, .inventory-item-label {
+  font-weight: bold;
 }
 
 .inventory-item-image {
-  width: 80px;
-  height: 80px;
+  width: 96px;
   object-fit: cover;
   margin-right: 1rem;
 }
 
 .inventory-item-info {
   flex: 1;
+  margin-top: auto;
 }
 
-.inventory-item-title {
-  margin: 0 0 0.5rem;
-}
-
-.inventory-item-label {
-  font-weight: bold;
+.inventory-item-info-details {
+  line-height: 0.5rem;
 }
 
 .inventory-item-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.5rem;
 }
 
-.inventory-edit-button,
-.inventory-delete-button {
-  background: none;
-  border: none;
-  color: #b29079;
-  cursor: pointer;
-  padding: 0;
-}
 
-.inventory-delete-button {
-  color: #8a4b4b;
-}

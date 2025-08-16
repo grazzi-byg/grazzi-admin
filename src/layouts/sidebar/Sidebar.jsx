@@ -20,58 +20,67 @@ export default function Sidebar() {
           <LogoGrazzi2D />
         </div>
         <ul className="sidebar-list">
-          <li>
+          <li className="sidebar-item">
             <Link
               to="/dashboard"
-              className="sidebar-link"
+              className="sidebar-link link"
               onClick={() => setIsSidebarOpen(false)}
             >
-              Dashboard
+              DASHBOARD
             </Link>
           </li>
-          <li>
-            <Link
-              to="/sales"
-              className="sidebar-link"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              Ventas
-            </Link>
-          </li>
-          <li>
+          <li className="sidebar-item">
             <Link
               to="/inventory"
-              className="sidebar-link"
+              className="sidebar-link link"
               onClick={() => setIsSidebarOpen(false)}
             >
-              Inventario
+              INVENTARIO
             </Link>
           </li>
-          <li>
+          <li className="sidebar-item">
             <Link
-              to="/users"
-              className="sidebar-link"
+              to="/sales"
+              className="sidebar-link link"
               onClick={() => setIsSidebarOpen(false)}
             >
-              Usuarios
+              VENTAS
             </Link>
           </li>
-          <li>
+          <li className="sidebar-item">
             <Link
-              to="/general"
-              className="sidebar-link"
+              to="/shipments"
+              className="sidebar-link link"
               onClick={() => setIsSidebarOpen(false)}
             >
-              General
+              ENVIOS
             </Link>
           </li>
-          <li>
+          <li className="sidebar-item">
+            <Link
+              to="/customers"
+              className="sidebar-link link"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              CLIENTES
+            </Link>
+          </li>
+          <li className="sidebar-item">
+            <Link
+              to="/claims"
+              className="sidebar-link link"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              RECLAMACIONES
+            </Link>
+          </li>
+          <li className="sidebar-item sidebar-item-logout">
             <Link
               to="/logout"
-              className="sidebar-link"
+              className="sidebar-link link"
               onClick={() => setIsSidebarOpen(false)}
             >
-              Logout
+              SALIR
             </Link>
           </li>
         </ul>
