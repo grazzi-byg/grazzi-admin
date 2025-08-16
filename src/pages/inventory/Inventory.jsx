@@ -1,24 +1,27 @@
 import "./Inventory.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 export default function Inventory() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const [availability, setAvailability] = useState({
-    1: true,
-    2: false,
-    3: true,
-    4: false,
-    5: true,
-  });
+  const [products, setProducts] = useState([]);
 
-  const handleToggle = (id) => {
-    setAvailability((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/v1/products`
+        );
+        const data = await response.json();
+        setProducts(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error fetching products", error);
+      }
+    }
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="inventory-container">
@@ -28,43 +31,51 @@ export default function Inventory() {
       >
         Crear producto
       </button>
-      <table>
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Producto</th>
-            <th>Stock</th>
-            <th>Precio unitario</th>
-            <th>Disponible</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            { id: 1, name: "Producto 1", stock: 10, price: 20000 },
-            { id: 2, name: "Producto 2", stock: 5, price: 20000 },
-            { id: 3, name: "Producto 3", stock: 20, price: 20000 },
-            { id: 4, name: "Producto 4", stock: 15, price: 20000 },
-            { id: 5, name: "Producto 5", stock: 25, price: 20000 },
-          ].map((product) => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>{product.stock}</td>
-              <td>{product.price}</td>
-              <td>
-                <button
-                  className={`toggle-button ${
-                    availability[product.id] ? "active" : ""
-                  }`}
-                  onClick={() => handleToggle(product.id)}
-                >
-                  {availability[product.id] ? "Activo" : "Inactivo"}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+      <div className="inventory-list">
+        {products.map((product) => (
+          <div className="inventory-item" key={product.id}>
+            {product.image && (
+              <img
+                src={product.image}
+                alt={product.name}
+                className="inventory-item-image"
+              />
+            )}
+            <div className="inventory-item-info">
+              <h3 className="inventory-item-title">{product.name}</h3>
+              {product.category && (
+                <p>
+                  <span className="inventory-item-label">Categoría:</span>{" "}
+                  {product.category}
+                </p>
+              )}
+              {product.material && (
+                <p>
+                  <span className="inventory-item-label">Material:</span>{" "}
+                  {product.material}
+                </p>
+              )}
+              {product.price && (
+                <p>
+                  <span className="inventory-item-label">Precio:</span>{" "}
+                  {product.price}
+                </p>
+              )}
+              {product.description && (
+                <p>
+                  <span className="inventory-item-label">Descripción:</span>{" "}
+                  {product.description}
+                </p>
+              )}
+            </div>
+            <div className="inventory-item-actions">
+              <button className="inventory-edit-button">Editar</button>
+              <button className="inventory-delete-button">Eliminar</button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
