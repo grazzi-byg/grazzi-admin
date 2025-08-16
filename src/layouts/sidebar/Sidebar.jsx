@@ -40,11 +40,11 @@ export default function Sidebar() {
           </li>
           <li>
             <Link
-              to="/products"
+              to="/inventory"
               className="sidebar-link"
               onClick={() => setIsSidebarOpen(false)}
             >
-              Productos
+              Inventario
             </Link>
           </li>
           <li>
