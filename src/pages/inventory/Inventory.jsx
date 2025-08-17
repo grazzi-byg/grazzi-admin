@@ -1,6 +1,6 @@
 import "./Inventory.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function Inventory() {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function Inventory() {
     async function fetchProducts() {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/v1/products`
+          `${import.meta.env.VITE_API_URL}/products`
         );
         const data = await response.json();
         setProducts(Array.isArray(data) ? data : []);
@@ -26,52 +26,54 @@ export default function Inventory() {
   return (
     <div className="inventory-container">
       <button
-        className="inventory-create-button"
-        onClick={() => navigate("/inventory/create")}
+        className="button-primary"
+        onClick={() => navigate("/inventory/create-product")}
       >
         Crear producto
       </button>
 
       <div className="inventory-list">
         {products.map((product) => (
-          <div className="inventory-item" key={product.id}>
-            {product.image && (
+          <div className="inventory-item" key={product.productId}>
+            {product.productImage && (
               <img
-                src={product.image}
-                alt={product.name}
+                src={product.productImage}
+                alt={product.productName}
                 className="inventory-item-image"
               />
             )}
             <div className="inventory-item-info">
-              <h3 className="inventory-item-title">{product.name}</h3>
-              {product.category && (
-                <p>
-                  <span className="inventory-item-label">Categoría:</span>{" "}
-                  {product.category}
-                </p>
-              )}
-              {product.material && (
-                <p>
-                  <span className="inventory-item-label">Material:</span>{" "}
-                  {product.material}
-                </p>
-              )}
-              {product.price && (
-                <p>
-                  <span className="inventory-item-label">Precio:</span>{" "}
-                  {product.price}
-                </p>
-              )}
-              {product.description && (
-                <p>
-                  <span className="inventory-item-label">Descripción:</span>{" "}
-                  {product.description}
-                </p>
-              )}
+              <span className="inventory-item-title">{product.productName}</span>
+              <div className="inventory-item-info-details">
+                {product.category && (
+                  <p>
+                    <span className="inventory-item-label">Categoría:</span>{" "}
+                    {product.category}
+                  </p>
+                )}
+                {product.material && (
+                  <p>
+                    <span className="inventory-item-label">Material:</span>{" "}
+                    {product.material}
+                  </p>
+                )}
+                {product.price && (
+                  <p>
+                    <span className="inventory-item-label">Precio:</span>{" "}
+                    {`$ ${product.price} COP`}
+                  </p>
+                )}
+                {product.description && (
+                  <p>
+                    <span className="inventory-item-label">Descripción:</span>{" "}
+                    {product.description}
+                  </p>
+                )}
+              </div>
             </div>
             <div className="inventory-item-actions">
-              <button className="inventory-edit-button">Editar</button>
-              <button className="inventory-delete-button">Eliminar</button>
+              <Link className="link">Editar</Link>
+              <Link className="link">Eliminar</Link>
             </div>
           </div>
         ))}
