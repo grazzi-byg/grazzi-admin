@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import "./Modal.css";
 
 export default function Modal({ children, onClose }) {

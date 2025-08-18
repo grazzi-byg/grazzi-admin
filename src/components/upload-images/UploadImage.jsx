@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useRef, useState } from "react";
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/jpg"];

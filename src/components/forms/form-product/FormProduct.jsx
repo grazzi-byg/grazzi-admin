@@ -1,8 +1,8 @@
 import UploadImage from "../../upload-images/UploadImage";
 import "./FormProduct.css";
 import { useState } from "react";
-import InputField from "../../input-fields/InputField"; 
-import SelectField from "../../select-fields/SelectField"; 
+import InputField from "../../input-fields/InputField";
+import SelectField from "../../select-fields/SelectField";
 import TextAreaField from "../../textarea-fields/TextAreaField";
 
 export default function FormProduct() {
@@ -16,8 +16,42 @@ export default function FormProduct() {
     setPublicId(public_id);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const productData = {
+      productName: formData.get("productName"),
+      category: formData.get("category"),
+      material: formData.get("material"),
+      stock: Number(formData.get("stock")),
+      price: Number(formData.get("price")),
+      description: formData.get("description"),
+      productImage: imageUrl,
+      publicId,
+    };
+
+    try {
+      const response = await fetch(`${import.meta.env.API_URL}/products`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al guardar el producto");
+      }
+
+      e.target.reset();
+      setImageUrl(
+        "https://res.cloudinary.com/dmzgcmevk/image/upload/v1755458248/upload_ve19hz.png"
+      );
+      setPublicId(null);
+    } catch (error) {
+      console.error("Error submitting product", error);
+    }
   };
 
   return (
@@ -42,31 +76,37 @@ export default function FormProduct() {
           <div className="product-details">
             <InputField
               label="Nombre del producto"
+              name="productName"
               type="text"
               placeholder="Digite el nombre del producto"
             />
             <SelectField
               label="Categoria"
+              name="category"
               options={["Anillos", "Cadenas", "Brazaletes", "Aretes"]}
               placeholder="Seleccione una categoría"
             />
             <SelectField
               label="Material"
+              name="material"
               options={["CoverGold", "Plata"]}
               placeholder="Seleccione un material"
             />
             <InputField
               label="Cantidad disponible"
+              name="stock"
               type="number"
               placeholder="Digite una cantidad"
             />
             <InputField
               label="Precio"
+              name="price"
               type="number"
               placeholder="Digite un precio"
             />
             <TextAreaField
               label="Descripción"
+              name="description"
               placeholder="Escriba una descripción breve"
             />
           </div>

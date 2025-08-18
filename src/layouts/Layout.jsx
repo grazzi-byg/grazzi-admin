@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import "./Layout.css";
 import Sidebar from "./sidebar/Sidebar";
 import { Outlet } from "react-router";
