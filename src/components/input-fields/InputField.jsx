@@ -1,10 +1,16 @@
+/* eslint-disable react/prop-types */
 import "./InputField.css";
 
-export default function InputField({ label, type = "text", placeholder }) {
+export default function InputField({
+  label,
+  name,
+  type = "text",
+  placeholder,
+}) {
   return (
     <div className="input-field">
-      <label>{label}</label>
-      <input type={type} placeholder={placeholder} />
+      <label htmlFor={name}>{label}</label>
+      <input id={name} name={name} type={type} placeholder={placeholder} />
     </div>
   );
 }
