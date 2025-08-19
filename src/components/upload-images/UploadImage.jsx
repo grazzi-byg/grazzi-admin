@@ -11,7 +11,6 @@ export default function UploadImage({
   onUploaded,
 }) {
   const fileRef = useRef(null);
-  const [preview, setPreview] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
 
@@ -70,14 +69,12 @@ export default function UploadImage({
     setUploading(true);
 
     try {
-      // Config check
       if (!cloudName || !uploadPreset) {
         throw new Error(
-          "Falta configuración de Cloudinary. Revisa VITE_CLOUDINARY_CLOUD_NAME y VITE_CLOUDINARY_UPLOAD_PRESET."
+          "Falla al cargar la imagen"
         );
       }
 
-      // Validaciones
       if (!ACCEPTED_TYPES.includes(file.type)) {
         throw new Error("Formato no permitido. Solo JPG/JPEG/PNG.");
       }
@@ -85,7 +82,6 @@ export default function UploadImage({
         throw new Error(`La imagen supera ${maxMb} MB.`);
       }
 
-      // Redimensionar si excede maxSizePx
       const { blob, dataUrl } = await resizeIfNeeded(file);
       if (blob.size > maxMb * 1024 * 1024) {
         throw new Error(
@@ -93,9 +89,6 @@ export default function UploadImage({
         );
       }
 
-      setPreview(dataUrl);
-
-      // Subida UNSIGNED a Cloudinary
       const form = new FormData();
       const fileName =
         file.name?.replace(/\s+/g, "_") ||
@@ -111,7 +104,6 @@ export default function UploadImage({
       const data = await resp.json();
 
       if (!resp.ok) {
-        // Mensaje directo de Cloudinary (incluye 'Upload preset not found' si aplica)
         throw new Error(data?.error?.message || "Error subiendo la imagen.");
       }
 
@@ -127,14 +119,6 @@ export default function UploadImage({
 
   return (
     <div className="upload-image">
-      {preview && (
-        <img
-          src={preview}
-          alt="Vista previa del producto"
-          className="product-image-preview"
-        />
-      )}
-
       <button className="form-button-image button-primary" onClick={trigger}>
         {uploading ? uploadingLabel : buttonLabel}
       </button>

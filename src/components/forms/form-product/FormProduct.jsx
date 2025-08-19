@@ -4,12 +4,14 @@ import { useState } from "react";
 import InputField from "../../input-fields/InputField";
 import SelectField from "../../select-fields/SelectField";
 import TextAreaField from "../../textarea-fields/TextAreaField";
+import { useNavigate } from "react-router";
 
 export default function FormProduct() {
   const [imageUrl, setImageUrl] = useState(
     "https://res.cloudinary.com/dmzgcmevk/image/upload/v1755458248/upload_ve19hz.png"
   );
   const [publicId, setPublicId] = useState(null);
+  const navigate = useNavigate();
 
   const handleUploaded = ({ url, public_id }) => {
     setImageUrl(url);
@@ -22,7 +24,7 @@ export default function FormProduct() {
     const formData = new FormData(e.target);
     const productData = {
       productName: formData.get("productName"),
-      category: formData.get("category"),
+      category: formData.get("category").toLowerCase(),
       material: formData.get("material"),
       stock: Number(formData.get("stock")),
       price: Number(formData.get("price")),
@@ -32,7 +34,7 @@ export default function FormProduct() {
     };
 
     try {
-      const response = await fetch(`${import.meta.env.API_URL}/products`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,13 +46,16 @@ export default function FormProduct() {
         throw new Error("Error al guardar el producto");
       }
 
-      e.target.reset();
       setImageUrl(
         "https://res.cloudinary.com/dmzgcmevk/image/upload/v1755458248/upload_ve19hz.png"
       );
       setPublicId(null);
+
+      alert("Producto guardado exitosamente");
+      navigate("/inventory");
+
     } catch (error) {
-      console.error("Error submitting product", error);
+      alert(`Error: ${error.message}`);
     }
   };
 
